@@ -26,7 +26,7 @@ Antes de começar, certifique-se de que seu ambiente atenda aos seguintes requis
 
 ## Frontend do Projeto
 
-Este repositório contém o frontend da ProfAgenda. Para acessar o backend, consulte o [Backend ProfAgenda](https://github.com/seu-usuario/profAgenda.git).
+Este repositório contém o frontend da ProfAgenda. Para acessar o backend, consulte o [Backend ProfAgenda](https://github.com/isagps/ProfAgendaBack).
 
 ## Instruções de Instalação
 
@@ -37,8 +37,7 @@ Siga os passos abaixo para configurar e rodar o frontend do projeto em sua máqu
 Clone o repositório do frontend do projeto e navegue até o diretório raiz:
 
 ```bash
-git clone https://github.com/seu-usuario/profAgenda-frontend.git
-cd profAgenda-frontend
+git clone https://github.com/isagps/ProfAgendaFront.git
 ```
 
 ### 2. Instalando as Dependências
