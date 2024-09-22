@@ -1,0 +1,79 @@
+@import '../../../../styles.variables.scss';
+
+.sidebar {
+    background-color: $primary-color !important;
+    box-sizing: border-box !important;
+    font-size: 16px !important;
+    height: 100% !important;
+    padding: 10px !important;
+    width: 250px !important;
+    transition: width 0.3s ease !important;
+    position: relative !important;
+
+    &.collapsed { width: 45px !important; }
+    .hidden { display: none !important; }
+
+    .sidebar-toggle {
+        position: absolute !important;
+        top: 10px !important;
+        right: 10px !important;
+        background-color: transparent !important;
+        border: none !important;
+        color: #fff !important;
+        cursor: pointer !important;
+        font-size: 18px !important;
+        transition: color 0.3s ease !important;
+
+        &:hover { color: lighten($primary-color, 20%) !important; }
+        em { font-size: 18px !important; }
+    }
+
+    ul {
+        list-style: none!important;
+        margin: 0!important;
+        padding: 0!important;
+
+        li {
+            padding-left: 0!important;
+
+            ul {
+                padding-left: 10px!important;
+
+                li {
+                    a { padding: 8px!important; }
+                }
+            }
+
+            a {
+                align-items: center!important;
+                border-radius: 5px!important;
+                color: #ffffff!important;
+                cursor: pointer!important;
+                display: flex!important;
+                padding: 10px!important;
+                text-decoration: none!important;
+                transition: background-color 0.2s ease, color 0.3s ease!important;
+
+                &:hover { background-color: darken($primary-color, 25%)!important; }
+
+                &.active {
+                    background-color: lighten($primary-color, 15%)!important;
+                    font-weight: bold!important;
+                }
+
+                &.group-link {
+                    background-color: darken($primary-color, 2%)!important;
+                    justify-content: space-between!important;
+
+                    &:hover { background-color: lighten($primary-color, 5%)!important; }
+                    &.active { background-color: lighten($primary-color, 20%)!important; }
+
+                    em {
+                        margin-left: auto!important;
+                        font-size: 12px!important;
+                    }
+                }
+            }
+        }
+    }
+}

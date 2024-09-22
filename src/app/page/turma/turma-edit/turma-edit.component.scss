@@ -1,0 +1,86 @@
+.form-container {
+    .horarios-section {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .horario-group {
+            display: flex;
+            flex-direction: column;
+
+            .horario-card {
+                background: #fafafa;
+                border-radius: 8px;
+                border: 1px solid #e0e0e0;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
+                .mat-card-header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-bottom: 20px;
+                    padding-bottom: 3px;
+                    border-bottom: 1px solid #e0e0e0;
+                
+                    .mat-card-title {
+                        color: #333;
+                        font-size: 18px;
+                        font-weight: 600;
+                        margin: 0;
+                    }
+                
+                    button {
+                        color: #f44336;
+                        background: transparent;
+                        border: none;
+                        cursor: pointer;
+                        transition: color 0.3s ease, transform 0.2s ease;
+                
+                        &:hover {
+                            color: #d32f2f;
+                            transform: scale(1.05);
+                        }
+                
+                        &:active { transform: scale(0.95); }
+                    }
+                }
+                
+                .horario-fields {
+                    display: grid;
+                    gap: 10px;
+                    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+                    @media (max-width: 768px) { grid-template-columns: 1fr; }
+                }
+            }
+        }
+    }
+
+    .add-horario-button {
+        display: flex !important;
+        justify-content: center !important;
+        margin-top: 16px !important;
+    
+        .btn-add {
+            background-color: transparent !important;
+            color: #0288d1 !important;
+            cursor: pointer !important;
+            font-size: 15px !important;
+            font-weight: 500 !important;
+
+            &:hover {
+                background-color: rgba(2, 136, 209, 0.1) !important;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+                transform: translateY(-3px) !important;
+            }
+    
+            &:active {
+                background-color: #004d73 !important;
+                border-color: #004d73 !important;
+                box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08) !important;
+                color: #fff !important;
+                transform: translateY(0) !important;
+            }
+        }
+    }    
+}

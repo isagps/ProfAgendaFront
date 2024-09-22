@@ -1,0 +1,56 @@
+@use 'sass:math';
+
+/* Funções para darken e lighten com suporte a opacidade */
+@function darken($color, $amount, $opacity: null) {
+    $result: mix(black, $color, $amount);
+    @if $opacity != null {
+        @return rgba($result, $opacity);
+    }
+    @return $result;
+}
+
+@function lighten($color, $amount, $opacity: null) {
+    $result: mix(white, $color, $amount);
+    @if $opacity != null {
+        @return rgba($result, $opacity);
+    }
+    @return $result;
+}
+
+/* Mixin para gerar classes de padding e margin */
+@mixin generate-spacing($property, $max) {
+    @for $i from 0 through $max {
+        .#{$property}-#{$i} { #{$property}: #{$i}px !important; }
+        .#{$property}-b-#{$i} { #{$property}-bottom: #{$i}px !important; }
+        .#{$property}-l-#{$i} { #{$property}-left: #{$i}px !important; }
+        .#{$property}-r-#{$i} { #{$property}-right: #{$i}px !important; }
+        .#{$property}-t-#{$i} { #{$property}-top: #{$i}px !important; }
+    }
+}
+
+/* Mixin para gerar classes de dimensões */
+@mixin generate-dimensions($max) {
+    @for $i from 0 through $max {
+        .h-#{$i} { height: #{$i}px !important; }
+        .h-#{$i}p { height: math.div($i, 100) * 100% !important; }
+        .w-#{$i} { width: #{$i}px !important; }
+        .w-#{$i}p { width: math.div($i, 100) * 100% !important; }
+    }
+}
+
+/* Mixin para gerar classes de font-size */
+@mixin generate-font-sizes($max) {
+    @for $i from 1 through $max {
+        .fs-#{$i} { font-size: #{$i}px !important; }
+    }
+}
+
+/* Geração de classes de padding e margin (p-0 a p-25 e m-0 a m-25) */
+@include generate-spacing('p', 25);
+@include generate-spacing('m', 25);
+
+/* Geração de classes de height e width (h-0 a h-100 e w-0 a w-100, com variações em %) */
+@include generate-dimensions(100);
+
+/* Geração de classes de font-size (fs-1 a fs-30) */
+@include generate-font-sizes(30);

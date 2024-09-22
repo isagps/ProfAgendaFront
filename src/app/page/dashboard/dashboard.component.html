@@ -1,0 +1,44 @@
+<app-panel header="Dashboard">
+    <div class="dashboard-grid">
+        <!-- Calendário à esquerda -->
+        <div class="dashboard-calendar" matTooltip="Hoje é {{ currentDate | date:'EEEE, dd MMMM yyyy' }}">
+            <app-calendar size="small"></app-calendar>
+        </div>        
+
+        <!-- Contadores à direita -->
+        <div class="dashboard-counters">
+            <!-- Contagem de Matérias -->
+            <mat-card class="dashboard-card" matTooltip="Número total de matérias cadastradas">
+                <mat-card-header>
+                    <img src="assets/educacao.gif" alt="Descrição do ícone" width="32" height="32">
+                    <mat-card-title>Matérias</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <h2>{{ totalMaterias }}</h2>
+                </mat-card-content>
+            </mat-card>
+
+            <!-- Contagem de Professores -->
+            <mat-card class="dashboard-card" matTooltip="Número total de professores cadastrados">
+                <mat-card-header>
+                    <img src="assets/professor.gif" alt="Descrição do ícone" width="32" height="32">
+                    <mat-card-title>Professores</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <h2>{{ totalProfessores }}</h2>
+                </mat-card-content>
+            </mat-card>
+
+            <!-- Contagem de Turmas -->
+            <mat-card class="dashboard-card" matTooltip="Número total de turmas cadastradas">
+                <mat-card-header>
+                    <img src="assets/faculdade.gif" alt="Descrição do ícone" width="32" height="32">
+                    <mat-card-title>Turmas</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <h2>{{ totalTurmas }}</h2>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</app-panel>

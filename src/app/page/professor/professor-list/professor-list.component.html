@@ -1,0 +1,13 @@
+<app-panel header="Consultar professores">
+    <app-data-table
+        (delete)="delete($event)"
+        (edit)="edit($event)"
+        (onChange)="loadData($event)"
+        (view)="view($event)"
+        [(pageNumber)]="pageNumber"
+        [(pageSize)]="pageSize"
+        [(filter)]="filter"
+        [data]="data"
+        [showColumns]="{'id': false}"
+    ></app-data-table>
+</app-panel>

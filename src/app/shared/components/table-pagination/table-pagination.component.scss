@@ -1,0 +1,42 @@
+@import "./../../../../styles.variables.scss";
+
+.pagination-container {
+    align-items: center !important;
+    display: flex !important;
+    justify-content: center !important;
+    margin: 1rem 0 !important;
+    position: relative !important;
+    top: 10px !important;
+
+    .pagination-button {
+        background-color: transparent !important;
+        border: none !important;
+        cursor: pointer !important;
+        transition: background-color 0.3s ease, color 0.3s ease !important;
+
+        &:disabled {
+            cursor: not-allowed !important;
+            opacity: 0.6 !important;
+        }
+    }
+
+    .pagination-text {
+        color: $table-border-color !important;
+        font-size: 1rem !important;
+        margin: 0 0.5rem !important;
+    }
+
+    .page-size-select {
+        align-items: center !important;
+        position: absolute !important;
+        right: 0 !important;
+        top: -10px !important;
+        width: 93px !important;
+        
+        
+
+        .mat-select-arrow { margin-top: -2px !important; }
+        mat-form-field-wrapper { padding-bottom: 0 !important; }
+        mat-select-trigger { font-size: 0.875rem !important; }
+    }
+}

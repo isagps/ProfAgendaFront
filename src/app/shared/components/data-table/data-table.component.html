@@ -1,0 +1,70 @@
+<app-table-filter
+    [data]="data?.items || []"
+    filterProperty="nome"
+    label="Filtrar dados por"
+    (filterChanged)="emitChanges($event)"
+></app-table-filter>
+
+<ng-container *ngIf="data && data.items?.length; else nenhumDado">
+    <table>
+        <thead>
+            <tr>
+                <ng-container *ngFor="let key of getKeys(data.items[0]); trackBy: trackByKey">
+                    <th *ngIf="!key.startsWith('id') && !isArray(data.items[0][key])" class="text-center"> 
+                        {{ key | titleLabel }} 
+                    </th>
+                </ng-container>
+    
+                <th *ngIf="showActionColumn" class="col-20 text-center">AÇÕES</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <tr *ngFor="let item of data.items; trackBy: trackByItem">
+                <ng-container *ngFor="let key of getKeys(item); trackBy: trackByKey">
+                    <td *ngIf="!key.startsWith('id') && !isArray(item[key])" class="text-center">{{ item[key] }}</td>
+                </ng-container>
+    
+                <td *ngIf="showActionColumn" class="text-center">
+                    <ng-container *ngIf="showView">
+                        <button 
+                            class="action-btn action-btn-view m-r-15" 
+                            (click)="view.emit(item)" 
+                            matTooltip="Visualizar">
+                            <em class="fa fa-eye" aria-hidden="true"></em>
+                        </button>
+                    </ng-container>
+                    <ng-container *ngIf="showEdit">
+                        <button 
+                            class="action-btn action-btn-edit m-r-15" 
+                            (click)="edit.emit(item)" 
+                            matTooltip="Editar">
+                            <em class="fa fa-edit" aria-hidden="true"></em>
+                        </button>
+                    </ng-container>
+                    <ng-container *ngIf="showDelete">
+                        <button 
+                            class="action-btn action-btn-delete" 
+                            (click)="delete.emit(item)" 
+                            matTooltip="Excluir">
+                            <em class="fa fa-trash" aria-hidden="true"></em>
+                        </button>
+                    </ng-container>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <app-table-pagination
+        *ngIf="data"
+        [(pageNumber)]="pageNumber"
+        [(pageSize)]="pageSize"
+        [totalItems]="data.total_items"
+    ></app-table-pagination>
+</ng-container>
+
+<ng-template #nenhumDado>
+    <mat-card class="no-data-message">
+        <mat-card-content>Nenhum dado disponível.</mat-card-content>
+    </mat-card>
+</ng-template>

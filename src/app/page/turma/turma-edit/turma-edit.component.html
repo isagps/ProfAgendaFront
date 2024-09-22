@@ -1,0 +1,110 @@
+<app-panel header="Editar Turma">
+    <form *ngIf="form" (ngSubmit)="onSubmit()" [formGroup]="form">
+        <ng-container *ngIf="data; else noData">
+            <div class="form-container">
+                <!-- Nome da Turma -->
+                <mat-form-field appearance="outline" class="w-100p">
+                    <mat-label>Nome da Turma</mat-label>
+                    <input matInput id="nome" formControlName="nome">
+                    <mat-error *ngIf="form.get('nome')?.hasError('required')">
+                        O nome é obrigatório.
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Lista de Horários -->
+                <div formArrayName="horarios" class="horarios-section">
+                    <div *ngFor="let horario of horarios.controls; let i = index" [formGroupName]="i" class="horario-group" [attr.data-index]="i">
+                        <mat-card class="horario-card">
+                            <mat-card-header class="mat-card-header">
+                                <mat-card-title>Horário {{ i + 1 }}</mat-card-title>
+                                <button mat-icon-button color="warn" type="button" (click)="removeHorario(i)" [matTooltip]="'Remover Horário ' + (i + 1)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="horario-fields">
+                                    <!-- Dia da Semana -->
+                                    <mat-form-field appearance="outline" class="w-100p">
+                                        <mat-label>Dia da Semana</mat-label>
+                                        <mat-select formControlName="dia_da_semana" required>
+                                            <mat-option *ngFor="let dia of diasDaSemana" [value]="dia">
+                                                {{ dia }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="horario.get('dia_da_semana')?.hasError('required')">
+                                            O dia da semana é obrigatório.
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                    <!-- Hora -->
+                                    <mat-form-field appearance="outline" class="w-100p">
+                                        <mat-label>Hora (HH:mm)</mat-label>
+                                        <input matInput formControlName="hora" placeholder="Ex: 14:30" appTimeMask>
+                                        <mat-error *ngIf="horario.get('hora')?.hasError('required')">
+                                            A hora é obrigatória.
+                                        </mat-error>
+                                        <mat-error *ngIf="horario.get('hora')?.hasError('pattern')">
+                                            Formato de hora inválido.
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                    <!-- Professor -->
+                                    <mat-form-field appearance="outline" class="w-100p">
+                                        <mat-label>Professor</mat-label>
+                                        <mat-select formControlName="professor" required>
+                                            <mat-option *ngFor="let professor of professoresOptions" [value]="professor.id">
+                                                {{ professor.nome }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="horario.get('professor')?.hasError('required')">
+                                            O professor é obrigatório.
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                    <!-- Matéria -->
+                                    <mat-form-field appearance="outline" class="w-100p">
+                                        <mat-label>Matéria</mat-label>
+                                        <mat-select formControlName="materia" required>
+                                            <ng-container *ngIf="getMateriasForHorario(i).length > 0; else noMaterias">
+                                                <mat-option *ngFor="let materia of getMateriasForHorario(i)" [value]="materia.id">
+                                                    {{ materia.nome }}
+                                                </mat-option>
+                                            </ng-container>
+                                            <ng-template #noMaterias>
+                                                <mat-option disabled>
+                                                    Nenhuma matéria disponível para este professor.
+                                                </mat-option>
+                                            </ng-template>
+                                        </mat-select>
+                                        <mat-error *ngIf="horario.get('materia')?.hasError('required')">
+                                            A matéria é obrigatória.
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+
+                <!-- Botão para Adicionar Horário -->
+                <div class="add-horario-button">
+                    <button mat-icon-button class="btn-add" type="button" (click)="addHorario()" matTooltip="Adicionar Horário">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>                
+            </div>
+        </ng-container>
+
+        <ng-template #noData>
+            <mat-card class="no-data-message">
+                <mat-card-content>Nenhum dado disponível.</mat-card-content>
+            </mat-card>
+        </ng-template>
+
+        <!-- Rodapé do Formulário -->
+        <div class="form-footer">
+            <button mat-raised-button class="btn-secondary" type="button" (click)="cancel()">Voltar</button>
+            <button *ngIf="data" mat-raised-button class="btn-primary" type="submit">Salvar edição</button>
+        </div>
+    </form>
+</app-panel>

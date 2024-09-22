@@ -1,0 +1,27 @@
+<div class="filter">
+    <mat-form-field appearance="outline" class="filter-input">
+      <mat-label>{{ label }}</mat-label>
+      <input
+        matInput
+        [(ngModel)]="filterValue"
+        [placeholder]="placeholder || 'Digite para filtrar...'"
+        (input)="onFilter($event)"
+        [attr.aria-busy]="isLoading ? 'true' : null"
+        aria-live="polite"
+      />
+      <span matSuffix class="suffix-container">
+        <mat-icon *ngIf="isLoading" class="loading-icon" aria-live="polite">cached</mat-icon>
+        <button
+          *ngIf="filterValue"
+          matTooltip="Limpar filtro"
+          mat-icon-button
+          class="clear-button"
+          aria-label="Limpar campo de filtro"
+          (click)="clearFilter()"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </span>
+    </mat-form-field>
+  </div>
+  

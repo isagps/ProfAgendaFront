@@ -1,0 +1,19 @@
+<div class="top-bar">
+    <a routerLink="/dashboard">
+        <img src="assets/logo.png" alt="Logo do Projeto" class="logo">
+    </a>
+</div>
+
+<div class="sidebar-container">
+    <app-sidebar></app-sidebar>
+
+    <div class="main-content">
+        <app-breadcrumb></app-breadcrumb>
+
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+</div>
+
+<app-notification></app-notification>

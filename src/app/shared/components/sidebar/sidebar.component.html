@@ -1,0 +1,74 @@
+<div class="sidebar" [ngClass]="{'collapsed': isCollapsed}">
+    <button class="sidebar-toggle" (click)="toggleSidebar()">
+        <em class="fa fa-chevron-left" *ngIf="!isCollapsed"></em>
+        <em class="fa fa-chevron-right" *ngIf="isCollapsed"></em>
+    </button>
+
+    <ul [ngClass]="{'hidden': isCollapsed}">
+        <!-- Itera sobre cada item da barra lateral -->
+        <ng-container *ngFor="let item of itens">
+            <li>
+                <!-- Link sem filhos -->
+                <a *ngIf="!item.children" [routerLink]="item.url" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                    <em [ngClass]="item.icon"></em>
+                    <span>{{ item.label }}</span>
+                </a>
+
+                <!-- Grupo com filhos -->
+                <div *ngIf="item.children">
+                    <a class="group-link" (click)="toggleGroup(item)">
+                        <div>
+                            <em [ngClass]="item.icon"></em>
+                            <span>{{ item.label }}</span>
+                        </div>
+
+                        <em *ngIf="item.hasChildren" class="fa-solid" [ngClass]="{
+                            'fa-sort-down': item.isOpen,
+                            'fa-sort-up': !item.isOpen
+                        }"></em>
+                    </a>
+
+                    <!-- Submenu -->
+                    <ul *ngIf="item.isOpen">
+                        <!-- Itera sobre cada item filho do grupo -->
+                        <ng-container *ngFor="let child of item.children">
+                            <li>
+                                <!-- Link para filho sem filhos -->
+                                <a *ngIf="!child.children" [routerLink]="child.url" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                                    <em [ngClass]="child.icon"></em>
+                                    <span>{{ child.label }}</span>
+                                </a>
+
+                                <!-- Subgrupo -->
+                                <div *ngIf="child.children">
+                                    <a class="group-link" (click)="toggleGroup(child)">
+                                        <div>
+                                            <em [ngClass]="child.icon"></em>
+                                            <span>{{ child.label }}</span>
+                                        </div>
+
+                                        <em *ngIf="child.hasChildren">{{ child.isOpen ? '▲' : '▼' }}</em>
+                                    </a>
+
+                                    <!-- Submenu do Subgrupo -->
+                                    <ul *ngIf="child.isOpen">
+                                        <!-- Itera sobre cada item neto do subgrupo -->
+                                        <ng-container *ngFor="let grandChild of child.children">
+                                            <li>
+                                                <!-- Link para item neto -->
+                                                <a [routerLink]="grandChild.url" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                                                    <em [ngClass]="grandChild.icon"></em>
+                                                    <span>{{ grandChild.label }}</span>
+                                                </a>
+                                            </li>
+                                        </ng-container>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ng-container>
+                    </ul>
+                </div>
+            </li>
+        </ng-container>
+    </ul>
+</div>

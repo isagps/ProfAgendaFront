@@ -1,0 +1,42 @@
+<app-panel header="Editar professor">
+    <form *ngIf="form" (ngSubmit)="onSubmit()" [formGroup]="form">
+        <ng-container *ngIf="data; else noData">
+            <mat-grid-list cols="2" rowHeight="85px">
+                <mat-grid-tile colspan="2">
+                    <!-- Nome da Matéria -->
+                    <mat-form-field appearance="outline" class="w-100p">
+                        <mat-label>Nome</mat-label>
+                        <input matInput id="nome" formControlName="nome">
+                        <mat-error *ngIf="form.get('nome')?.hasError('required')">
+                            O nome é obrigatório.
+                        </mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+        
+                <mat-grid-tile>
+                    <!-- Matérias -->
+                    <mat-form-field appearance="outline" class="w-100p">
+                        <mat-label>Matérias</mat-label>
+                        <mat-select id="materias" formControlName="materias" multiple>
+                            <mat-option *ngFor="let materia of materiasOptions" [value]="materia.id">
+                                {{ materia.nome }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </ng-container>
+
+        <ng-template #noData>
+            <mat-card class="no-data-message">
+                <mat-card-content>Nenhum dado disponível.</mat-card-content>
+            </mat-card>
+        </ng-template>
+
+        <!-- Rodapé do Formulário -->
+        <div class="form-footer">
+            <button mat-raised-button class="btn-secondary" type="button" (click)="cancel()">Voltar</button>
+            <button *ngIf="data" mat-raised-button class="btn-primary" type="submit">Salvar edição</button>
+        </div>
+    </form>
+</app-panel>

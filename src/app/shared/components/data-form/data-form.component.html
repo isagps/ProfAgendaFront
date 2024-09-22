@@ -1,0 +1,21 @@
+<app-panel [header]="header">
+    <form (ngSubmit)="submit()" [formGroup]="form">
+        <mat-grid-list [cols]="((form.controls | keyvalue) | filterControl:form).length === 1 ? 1 : 2" rowHeight="85px">
+            <ng-container *ngFor="let key of ((form.controls | keyvalue) | filterControl:form); let i = index; let last = last">
+                <mat-grid-tile>
+                    <ng-container *ngIf="!containsHora(key.key)">
+                        <mat-form-field appearance="outline" class="w-100p">
+                            <mat-label>{{ key.key | titleLabel }}</mat-label>
+                            <input matInput [formControlName]="key.key" [id]="key.key" [name]="key.key" [readonly]="isReadOnly" />
+                        </mat-form-field>
+                    </ng-container>
+                </mat-grid-tile>
+            </ng-container>
+        </mat-grid-list>
+
+        <div class="form-footer">
+            <button mat-raised-button class="btn-secondary" type="button" (click)="cancel()">Voltar</button>
+            <button mat-raised-button class="btn-primary" type="submit">Salvar edição</button>
+        </div>
+    </form>
+</app-panel>

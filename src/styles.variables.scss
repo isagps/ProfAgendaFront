@@ -1,0 +1,30 @@
+/* Definindo variáveis CSS para cores */
+$primary-color: #0180f7;
+$secondary-color: #b0c2c7;
+$background-primary-color: #ffffff;
+$background-secondary-color: #f5f5f5;
+$danger-color: #dc3545;
+$info-color: #17a2b8;
+$success-color: #28a745;
+$warning-color: #ffc107;
+
+// Cores de Fundo
+$background-primary-color: #ffffff;
+$background-secondary-color: #f5f5f5;
+
+// Cores para Componentes de Tabela
+$table-border-color: $secondary-color;
+$table-content-background-alt: lighten($background-secondary-color, 0%);
+$table-content-background: darken($background-secondary-color, 10%);
+$table-header-background: darken($primary-color, 5%);
+$table-header-color: $background-primary-color;
+
+// Variaveis globais
+$border-radius: 4px;
+$breakpoint-large: 1200px;
+$breakpoint-medium: 992px;
+$main-padding: 1.25rem;
+$small-padding: 1rem;
+$small-screen: 768px;
+$top-bar-height: 60px;
+$transition-speed: 0.3s;

@@ -1,0 +1,12 @@
+<div class="dialog">
+    <div *ngIf="header" class="header">{{ header }}</div>
+
+    <div class="content">
+        <p class="message">{{ message }}</p>
+    </div>
+
+    <div class="form-footer">
+        <button mat-raised-button color="warn" type="button" (click)="onNoClick()">Não</button>
+        <button mat-raised-button color="primary" type="button" (click)="onYesClick()">Sim</button>
+    </div>
+</div>

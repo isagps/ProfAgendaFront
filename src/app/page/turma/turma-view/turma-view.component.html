@@ -1,0 +1,77 @@
+<app-panel header="Visualizar turma">
+    <ng-container *ngIf="data; else noData">
+        <!-- Nome da Turma -->
+        <mat-form-field appearance="outline" class="w-100p">
+            <mat-label>Nome da Turma</mat-label>
+            <input matInput [value]="data.nome" readonly />
+        </mat-form-field>
+
+        <!-- Horários Panel com Filtragem -->
+        <ng-container *ngIf="data.horarios?.length; else noHorario">
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Horários</mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <!-- Componente de Filtragem -->
+                    <div>
+                        <app-table-filter
+                            (filteredData)="filtered = $event"
+                            [data]="data.horarios || []"
+                            [filterProperties]="['dia_da_semana', 'hora', 'materia.nome', 'professor.nome']"
+                            label="Buscar Horário"
+                        ></app-table-filter>
+                    </div>
+
+                    <!-- Tabela de Horários Filtrados -->
+                    <ng-container *ngIf="filtered?.length; else noHorarios">
+                        <table>
+                            <caption></caption>
+                            <thead>
+                                <tr>
+                                    <th>Dia da Semana</th>
+                                    <th>Hora</th>
+                                    <th>Matéria</th>
+                                    <th>Professor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let horario of filtered">
+                                    <td>{{ horario.dia_da_semana }}</td>
+                                    <td>{{ horario.hora }}</td>
+                                    <td>{{ horario.materia?.nome || 'N/A' }}</td>
+                                    <td>{{ horario.professor?.nome || 'N/A' }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </ng-container>
+
+                    <ng-template #noHorarios>
+                        <mat-card class="no-data-message">
+                            <mat-card-content>Nenhum horário encontrado com os critérios de filtragem.</mat-card-content>
+                        </mat-card>
+                    </ng-template>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </ng-container>
+
+        <ng-template #noHorario>
+            <mat-card class="no-data-message">
+                <mat-card-content>Sem horários registrados.</mat-card-content>
+            </mat-card>
+        </ng-template>
+    </ng-container>
+
+    <ng-template #noData>
+        <mat-card class="no-data-message">
+            <mat-card-content>Nenhum dado disponível.</mat-card-content>
+        </mat-card>
+    </ng-template>
+
+    <div class="form-footer">
+        <button mat-raised-button class="btn-secondary" type="button" (click)="cancel()">
+            Voltar
+        </button>
+    </div>
+</app-panel>

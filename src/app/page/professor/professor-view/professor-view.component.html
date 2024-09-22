@@ -1,0 +1,117 @@
+<!-- professor-view.component.html -->
+<app-panel header="Visualizar professor">
+    <ng-container *ngIf="data; else noData">
+        <!-- Display Professor's Name -->
+        <mat-form-field appearance="outline" class="w-100p">
+            <mat-label>Nome do Professor(a)</mat-label>
+            <input matInput [value]="data.nome" readonly />
+        </mat-form-field>
+
+        <!-- Matérias Panel -->
+        <ng-container *ngIf="data.materias?.length; else noMateria">
+            <mat-accordion>
+                <!-- Matérias Expansion Panel -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Matérias</mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <!-- Use the TableFilterComponent -->
+                    <app-table-filter
+                        (filteredData)="filtered = $event"
+                        [data]="data.materias || []"
+                        [filterProperties]="['nome']"
+                        label="Buscar Matéria"
+                        placeholder="Digite o nome da matéria"
+                    ></app-table-filter>
+
+                    <ng-container *ngIf="filtered?.length; else noMaterias">
+                        <table>
+                            <caption></caption>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Horários</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let materia of filtered">
+                                    <td>{{ materia.nome }}</td>
+                                    <td>
+                                        <!-- Expansion Panel for Horários -->
+                                        <mat-accordion>
+                                            <mat-expansion-panel>
+                                                <mat-expansion-panel-header>
+                                                    <mat-panel-title>
+                                                        Horários de {{ materia.nome }}
+                                                    </mat-panel-title>
+                                                </mat-expansion-panel-header>
+
+                                                <ng-container *ngIf="materia.horarios?.length; else noMateriaHorarios">
+                                                    <table>
+                                                        <caption></caption>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Dia da Semana</th>
+                                                                <th>Hora</th>
+                                                                <th>Turma</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let horario of materia.horarios">
+                                                                <td>{{ horario.dia_da_semana }}</td>
+                                                                <td>{{ horario.hora }}</td>
+                                                                <td>{{ horario.turma?.nome || 'N/A' }}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </ng-container>
+                                                
+                                                <ng-template #noMateriaHorarios>
+                                                    <mat-card class="no-data-message">
+                                                        <mat-card-content>Sem horários registrados.</mat-card-content>
+                                                    </mat-card>
+                                                </ng-template>
+                                            </mat-expansion-panel>
+                                        </mat-accordion>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </ng-container>
+
+                    <ng-template #noMaterias>
+                        <ng-container *ngIf="!data; else noFilter">
+                            <mat-card class="no-data-message">
+                                <mat-card-content>Sem matérias registradas.</mat-card-content>
+                            </mat-card>
+                        </ng-container>
+                        <ng-template #noFilter>
+                            <mat-card class="no-data-message">
+                                <mat-card-content>Sem dados encontrados.</mat-card-content>
+                            </mat-card>
+                        </ng-template>
+                    </ng-template>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </ng-container>
+
+        <ng-template #noMateria>
+            <mat-card class="no-data-message">
+                <mat-card-content>Nenhuma matéria disponível.</mat-card-content>
+            </mat-card>
+        </ng-template>
+    </ng-container>
+
+    <ng-template #noData>
+        <mat-card class="no-data-message">
+            <mat-card-content>Nenhum dado disponível.</mat-card-content>
+        </mat-card>
+    </ng-template>
+
+    <div class="form-footer">
+        <button mat-raised-button class="btn-secondary" type="button" (click)="cancel()">
+            Voltar
+        </button>
+    </div>
+</app-panel>

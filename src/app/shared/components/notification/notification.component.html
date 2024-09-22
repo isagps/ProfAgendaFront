@@ -1,0 +1,24 @@
+<div class="notification-container">
+
+    <!-- Loop para renderizar cada notificação presente em `notificationList` -->
+    <div *ngFor="let notification of notificationList">
+
+        <!-- Aplica classes dinâmicas à notificação com base em seu tipo usando `getNotificationClass` -->
+        <div [ngClass]="getNotificationClass(notification)" class="notification">
+
+            <!-- Conteúdo da notificação, incluindo a mensagem de texto -->
+            <div class="notification-content">
+                <div class="notification-text">
+                    <span>{{ notification.message }}</span>
+                </div>
+            </div>
+
+            <!-- Botão de fechamento da notificação -->
+            <button class="close-button" (click)="close(notification)">✖</button>
+
+            <!-- Barra de progresso que indica o tempo restante da notificação -->
+            <div class="progress-bar" [ngStyle]="{'width': getProgressBarWidth(notification) }"></div>
+        </div>
+
+    </div>
+</div>
